@@ -33,6 +33,8 @@ int main(int argc, char **argv)
     /* Parallel Execution With OpenMp */
     locate_object_openMP();
 
+    /* Parallel Execution With OpenMp */
+    //locate_object_openMP_for();
 
     pthread_join(gui_th, NULL);
     pthread_join(gendata_th, NULL);

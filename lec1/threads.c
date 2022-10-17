@@ -228,6 +228,65 @@ loopEnd:
     }
 }
 
+/* Object Location using OpenMP For */
+
+void locate_object_openMP_for()
+{
+    int nthreads=0;
+    #pragma omp parallel
+    {
+        nthreads= omp_get_num_threads();
+    }
+
+    #pragma omp parallel for shedule(static,3)
+    {
+        int tid = omp_get_thread_num();
+
+        double time_spent = 0.0;
+        clock_t begin,end;
+
+        struct timespec next, period = {0, PERIOD_MS * 1000000};
+        clock_gettime(CLOCK_MONOTONIC, &next);
+        while (quit == 0)
+        {
+            begin = clock();
+            #pragma omp barrier
+            #pragma omp critical
+            {
+                ball_found = false;
+            }
+
+            timespec_add(&next, &period, &next);
+            for (int i = tid; i < MAP_WIDTH; i+=nthreads)
+            {
+                for (int j = 0; j < MAP_HEIGHT; j++)
+                {
+                    if (data[i][j] == true)
+                    {
+                        #pragma omp critical
+                        {
+                            ball_found = true;
+                        }
+                        goto loopEnd;
+                    }
+                }
+            }
+
+loopEnd:
+            #pragma omp barrier
+            end = clock();
+            time_spent = (end-begin) / (double)CLOCKS_PER_SEC;
+
+            if(time_spent>Wcet)
+            {
+                Wcet = time_spent;
+            }
+            printf("The WCET time is %f seconds\n", Wcet);
+            printf("The computation time is %f seconds\n", time_spent);
+            clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &next, NULL);
+        }
+    }
+}
 
 void *generate_data(void *args)
 {
