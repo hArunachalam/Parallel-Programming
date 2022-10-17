@@ -1,0 +1,3 @@
+/d/Coro_M2/Semester_9/PAPRO_Parallel_Programming/Lab/lec1/build/CMakeFiles/testStudent.dir
+/d/Coro_M2/Semester_9/PAPRO_Parallel_Programming/Lab/lec1/build/CMakeFiles/edit_cache.dir
+/d/Coro_M2/Semester_9/PAPRO_Parallel_Programming/Lab/lec1/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,1 @@
+/usr/bin/cc.exe -Wl,--enable-auto-import CMakeFiles/testStudent.dir/main.c.o CMakeFiles/testStudent.dir/play_utils.c.o CMakeFiles/testStudent.dir/threads.c.o -o testStudent.exe -Wl,--out-implib,libtestStudent.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lm -lm -lgomp 
